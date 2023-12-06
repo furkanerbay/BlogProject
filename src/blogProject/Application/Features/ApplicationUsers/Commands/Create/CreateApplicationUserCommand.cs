@@ -1,4 +1,5 @@
 ﻿using Application.Features.ApplicationUsers.Rules;
+using Application.Services.EntityService.ApplicationUserService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;

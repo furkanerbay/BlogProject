@@ -1,4 +1,5 @@
 ﻿using Application.Features.Users.Rules;
+using Application.Services.EntityService.UserService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
@@ -27,12 +28,14 @@ public class CreateUserCommand : IRequest<CreatedUserResponse>
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly UserBusinessRules _userBusinessRules;
+        private readonly IUserService _userService;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, UserBusinessRules userBusinessRules)
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, UserBusinessRules userBusinessRules,IUserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userBusinessRules = userBusinessRules;
+            _userService = userService;
         }
 
         public async Task<CreatedUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -46,6 +49,7 @@ public class CreateUserCommand : IRequest<CreatedUserResponse>
             mappedUser.PasswordSalt = passwordSalt;
 
             User createdUser = await _userRepository.AddAsync(mappedUser);
+            _userService.AddWithApplicationUser(mappedUser);
             CreatedUserResponse createdUserDto = _mapper.Map<CreatedUserResponse>(createdUser);
             return createdUserDto;
         }

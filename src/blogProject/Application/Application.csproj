@@ -21,9 +21,4 @@
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\ApplicationUsers\Queries\" />
-    <Folder Include="Features\ApplicationUsers\Profiles\" />
-  </ItemGroup>
-
 </Project>

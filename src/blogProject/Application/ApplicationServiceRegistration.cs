@@ -16,6 +16,7 @@ using Core.Mailing.MailKitImplementations;
 using Application.Services.EntityService.AuthService;
 using Application.Services.EntityService.AuthenticatorService;
 using Application.Services.EntityService.UserService;
+using Application.Services.EntityService.ApplicationUserService;
 
 namespace Application;
 
@@ -50,6 +51,7 @@ public static class ApplicationServiceRegistration
         //services.AddScoped<IRentalService, RentalManager>();
         //services.AddScoped<IRentalsAdditionalServiceService, RentalsAdditionalServiceManager>();
         services.AddScoped<IUserService, UserManager>();
+        services.AddScoped<IApplicationUserService, ApplicationUserManager>();
 
         services.AddSingleton<IMailService, MailKitMailService>();
         services.AddSingleton<LoggerServiceBase, FileLogger>();
