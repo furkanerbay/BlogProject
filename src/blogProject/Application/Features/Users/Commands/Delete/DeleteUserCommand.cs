@@ -35,11 +35,18 @@ public class DeleteUserCommand : IRequest<DeletedUserResponse>
         public async Task<DeletedUserResponse> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             await _userBusinessRules.UserIdShouldExistWhenSelected(request.Id);
-
+            /*
             User mappedUser = _mapper.Map<User>(request);
             User deletedUser = await _userRepository.DeleteAsync(mappedUser);
+            User deletedUser = await _userRepository.UpdateAsync(mappedUser);
             DeletedUserResponse deletedUserDto = _mapper.Map<DeletedUserResponse>(deletedUser);
             return deletedUserDto;
+            */
+            User user = await _userRepository.GetAsync(predicate : u => u.Id == request.Id);
+            user.Status = false;
+            User softDelete = await _userRepository.UpdateAsync(user);
+            DeletedUserResponse response = _mapper.Map<DeletedUserResponse>(softDelete);
+            return response;
         }
     }
 }

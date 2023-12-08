@@ -28,6 +28,8 @@ public class CreateLikeCommand : IRequest<CreatedLikeResponse>
         }
         public async Task<CreatedLikeResponse> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {
+            await _likeBusinessRules.IsItLike(request.BlogId,request.ApplicationUserId);
+
             Like mappedLike = _mapper.Map<Like>(request);
             Like addedLike = await _likeRepository.AddAsync(mappedLike);
             CreatedLikeResponse response = _mapper.Map<CreatedLikeResponse>(addedLike);

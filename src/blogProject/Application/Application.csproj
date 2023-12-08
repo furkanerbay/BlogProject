@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Features\Blogs\Constants\" />
     <Folder Include="Features\Comments\Constants\" />
-    <Folder Include="Features\Likes\Constants\" />
   </ItemGroup>
 
 </Project>
